@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express'); 
 const http = require('http');
 const socketIO = require('socket.io');
-const {generateMessage} = require('./utils/message')
+const {generateMessage,generateLocationMessage} = require('./utils/message')
 
 
 
@@ -22,6 +22,10 @@ io.on('connection',(socket) => {
     socket.emit("newMessage",generateMessage("Admin","Welcome to the chat"));
 
     socket.broadcast.emit("newMessage",generateMessage("Admin","New User joined"));
+    //on current location message 
+    socket.on("createLocationMessage",(coords)=> {
+        io.emit("newLocationMessage",generateLocationMessage("Admin",coords.longitude,coords.latitude));
+    })
 
     //on create message listener
     socket.on("createMessage",(message,callback) => {
