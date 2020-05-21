@@ -12,7 +12,16 @@ socket.on('disconnect',() => {
 
 socket.on("newMessage",function(message){
     console.log(message)
-    let li = `<li>${message.from} : ${message.text}</li>`
+    let li = $(`<li></li>`);
+    li.addClass('message');
+    let text = $('<p></p>');
+    text.addClass('message__text');
+    text.text(`${message.from} : ${message.text}`);
+    let date = $('<p></p>');
+    date.addClass('message__time');
+    date.text(moment(message.createdAt).format('LT'));
+    //  `<li>${message.from} : ${message.text}</li>`
+    li.append(text,date);
     $('#messages').append(li);
 });
 
@@ -24,6 +33,18 @@ $('#message-form').on('submit',function(e){
         text : input
     },function(){
         console.log("Got It")
+        // console.log(message)
+    let li = $(`<li></li>`);
+    li.addClass('message-self');
+    let text = $('<p></p>');
+    text.addClass('message__text');
+    text.text(`User : ${input}`);
+    let date = $('<p></p>');
+    date.addClass('message__time');
+    date.text(moment().format('LT'));
+    //  `<li>${message.from} : ${message.text}</li>`
+    li.append(text,date);
+    $('#messages').append(li);
     })
 })
 
