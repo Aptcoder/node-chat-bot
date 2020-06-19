@@ -24,7 +24,7 @@ io.on('connection',(socket) => {
     console.log('User connected!')
 
     //emit message when new user joins
-    socket.emit("newMessage",generateMessage("Bot","Welcome to the chat"));
+    socket.emit("newMessage",generateMessage("Bot","Hello there,I can do small talk and help with translations to french when you say to translate"));
 
     // socket.broadcast.emit("newMessage",generateMessage("Admin","New User joined"));
     //on current location message 
